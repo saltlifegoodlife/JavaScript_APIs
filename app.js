@@ -1,7 +1,8 @@
 let button = document.getElementById("submitSearch");
 let input = document.getElementById("searchWord");
 let img = document.querySelector("img");
-let p = document.querySelector("p");
+let p = document.createElement("p");
+p.id = "error";
 button.addEventListener("click", showGiphs);
 
 const apiKey = "KYSii2fNlMuZfOPob8BGvdRVmXlJOcYf";
@@ -16,12 +17,13 @@ function showGiphs() {
     .then((obj) => {
       img.src = `${obj.data.images.original.url}`;
       input.value = "";
-      p.textContent =
-        "Open the Browser Console to view your work(Right-Click => Inspect or fn+F12)";
+      p.textContent = "";
     })
     .catch((err) => {
       console.log(err);
       p.textContent = "Could not find a Gif, please try again.";
+      img.src = "";
+      document.getElementById("imageContainer").appendChild(p);
     });
 }
 
